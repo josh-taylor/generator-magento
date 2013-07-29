@@ -28,6 +28,11 @@ MagentoGenerator.prototype.askFor = function askFor() {
     message: 'What version do you want to use? (e.g. 1.7.0.2)',
     default: '1.7.0.2'
   }, {
+    type:'confirm',
+    name: 'includeGitignore',
+    message: 'Do you want to include the default .gitignore file?',
+    default: true,
+  }, {
     type: 'confirm',
     name: 'includeUnitTest',
     message: 'Do you want to include EcomDevs PHPUnit module?',
@@ -46,6 +51,7 @@ MagentoGenerator.prototype.app = function app() {
   var cb = this.async(),
     self = this;
 
+  this.copy('_gitignore', '.gitignore');
   this.tarball('http://www.magentocommerce.com/downloads/assets/' + self.magentoVersion + '/magento-' + self.magentoVersion + '.tar.gz', './', cb);
 };
 

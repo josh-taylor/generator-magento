@@ -16,7 +16,6 @@ project for me to get into writing generators with yeoman.
 ## TODO
 
  - Give option to install EcomDev_PHPUnit module
- - Use a base .gitignore file
  - Run magento installation
 
 ## License
