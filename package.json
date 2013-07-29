@@ -5,17 +5,17 @@
   "keywords": [
     "yeoman-generator"
   ],
-  "homepage": "https://github.com/jshtylr/generator-magento",
-  "bugs": "https://github.com/jshtylr/generator-magento/issues",
+  "homepage": "https://github.com/josh-taylor/generator-magento",
+  "bugs": "https://github.com/josh-taylor/generator-magento/issues",
   "author": {
     "name": "Josh Taylor",
     "email": "joshotaylor@gmail.com",
-    "url": "https://github.com/jshtylr"
+    "url": "https://github.com/josh-taylor"
   },
   "main": "app/index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/jshtylr/generator-magento.git"
+    "url": "git://github.com/josh-taylor/generator-magento.git"
   },
   "scripts": {
     "test": "mocha"
