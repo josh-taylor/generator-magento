@@ -21,6 +21,7 @@ project for me to get into writing generators with yeoman.
    - var
    - media
  - Use a base .gitignore file
+ - Run magento installation
 
 ## License
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)
