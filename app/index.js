@@ -52,6 +52,9 @@ MagentoGenerator.prototype.app = function app() {
     self = this;
 
   this.copy('_gitignore', '.gitignore');
+  this.copy('_bower.json', 'bower.json');
+  this.copy('_package.json', 'package.json');
+
   this.tarball('http://www.magentocommerce.com/downloads/assets/' + self.magentoVersion + '/magento-' + self.magentoVersion + '.tar.gz', './', cb);
 };
 
