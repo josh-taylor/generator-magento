@@ -1,4 +1,4 @@
-# Generator-magento
+# Generator Magento
 
 A generator for Magento.
 
@@ -12,6 +12,15 @@ project for me to get into writing generators with yeoman.
     `npm install -g yo`
 - Install the generator: `npm install -g generator-magento`
 - Run: `yo magento`
+
+## TODO
+
+ - Give option to install EcomDev_PHPUnit module
+ - Set directories writable after installation
+   - app/etc
+   - var
+   - media
+ - Use a base .gitignore file
 
 ## License
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)
