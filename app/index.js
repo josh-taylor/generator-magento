@@ -30,7 +30,7 @@ MagentoGenerator.prototype.askFor = function askFor() {
     type: 'confirm',
     name: 'includeUnitTest',
     message: 'Do you want to include EcomDevs PHPUnit module?',
-    default: true
+    default: false
   }];
 
   this.prompt(prompts, function (props) {
