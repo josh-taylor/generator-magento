@@ -16,10 +16,6 @@ project for me to get into writing generators with yeoman.
 ## TODO
 
  - Give option to install EcomDev_PHPUnit module
- - Set directories writable after installation
-   - app/etc
-   - var
-   - media
  - Use a base .gitignore file
  - Run magento installation
 

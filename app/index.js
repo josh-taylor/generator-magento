@@ -1,6 +1,7 @@
 'use strict';
 var util = require('util');
 var path = require('path');
+var wrench = require('wrench');
 var yeoman = require('yeoman-generator');
 
 
@@ -47,6 +48,15 @@ MagentoGenerator.prototype.app = function app() {
 
   this.tarball('http://www.magentocommerce.com/downloads/assets/' + self.magentoVersion + '/magento-' + self.magentoVersion + '.tar.gz', './', cb);
 };
+
+MagentoGenerator.prototype.permission = function permissions() {
+  var cb = this.async(),
+    self = this;
+
+  wrench.chmodSyncRecursive('app/etc', 775);
+  wrench.chmodSyncRecursive('media', 775);
+  wrench.chmodSyncRecursive('var', 775);
+}
 
 MagentoGenerator.prototype.phpunit = function phpunit() {
   var cb = this.async(),
