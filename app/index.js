@@ -32,11 +32,6 @@ MagentoGenerator.prototype.askFor = function askFor() {
     name: 'includeGitignore',
     message: 'Do you want to include the default .gitignore file?',
     default: true,
-  }, {
-    type: 'confirm',
-    name: 'includeUnitTest',
-    message: 'Do you want to include EcomDevs PHPUnit module?',
-    default: false
   }];
 
   this.prompt(prompts, function (props) {
@@ -65,34 +60,4 @@ MagentoGenerator.prototype.permission = function permissions() {
   wrench.chmodSyncRecursive('app/etc', 775);
   wrench.chmodSyncRecursive('media', 775);
   wrench.chmodSyncRecursive('var', 775);
-}
-
-MagentoGenerator.prototype.phpunit = function phpunit() {
-  var cb = this.async(),
-    self = this;
-
-  if (self.includeUnitTest) {
-    try {
-      var version = exec('git ls-remote --tags git://github.com/EcomDev/EcomDev_PHPUnit.git | tail -n 1', function(err, stdout, stderr) {
-        if (err) {
-          cb()
-        } else {
-          var pattern = /\d\.\d[\.\d]*/ig,
-            match = pattern.exec(stdout);
-
-          if (match !== null && typeof match[0] !== 'undefined') {
-            self.ecomdevPHPUnitVersion = match[0];
-          }
-        }
-
-        cb()
-      });
-    } catch(e) {
-      cb()
-    }
-
-    if (typeof self.ecomdevPHPUnitVersion !== "undefined") {
-      this.tarball('https://github.com/EcomDev/EcomDev_PHPUnit  /tarball/' + self.ecomdevPHPUnitVersion, './', cb);
-    }
-  }
 }
