@@ -119,6 +119,7 @@ MagentoGenerator.prototype.sampleData = function sampleData() {
         if (err) {
           throw err;
         }
+        wrench.rmdirSyncRecursive('tmp');
         cb();
       });
     });
