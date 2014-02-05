@@ -25,71 +25,31 @@ MagentoGenerator.prototype.askFor = function askFor() {
 
   var prompts = [{
     name: 'magentoVersion',
-    message: 'What version do you want to use? (e.g. 1.7.0.2)',
-    default: '1.7.0.2'
-  }, {
-    type:'confirm',
-    name: 'includeGitignore',
-    message: 'Do you want to include the default .gitignore file?',
-    default: true,
-  }, {
-    type: 'confirm',
-    name: 'includeUnitTest',
-    message: 'Do you want to include EcomDevs PHPUnit module?',
-    default: false
+    message: 'What version do you want to use?',
+    default: '1.8.1.0'
   }];
 
   this.prompt(prompts, function (props) {
     this.magentoVersion = props.magentoVersion;
-    this.includeUnitTest = props.includeUnitTest;
 
     cb();
   }.bind(this));
 };
 
 MagentoGenerator.prototype.app = function app() {
-  var cb = this.async(),
-    self = this;
-
   this.copy('_gitignore', '.gitignore');
-  this.tarball('http://www.magentocommerce.com/downloads/assets/' + self.magentoVersion + '/magento-' + self.magentoVersion + '.tar.gz', './', cb);
+  this.copy('_bower.json', 'bower.json');
+  this.copy('_package.json', 'package.json');
+  this.copy('bowerrc', '.bowerrc');
 };
 
-MagentoGenerator.prototype.permission = function permissions() {
-  var cb = this.async(),
-    self = this;
+MagentoGenerator.prototype.projectfiles = function projectfiles() {
+  this.copy('editorconfig', '.editorconfig');
+  this.copy('jshintrc', '.jshintrc');
+};
 
-  wrench.chmodSyncRecursive('app/etc', 775);
-  wrench.chmodSyncRecursive('media', 775);
-  wrench.chmodSyncRecursive('var', 775);
-}
+MagentoGenerator.prototype.download = function download() {
+  var cb = this.async();
 
-MagentoGenerator.prototype.phpunit = function phpunit() {
-  var cb = this.async(),
-    self = this;
-
-  if (self.includeUnitTest) {
-    try {
-      var version = exec('git ls-remote --tags git://github.com/EcomDev/EcomDev_PHPUnit.git | tail -n 1', function(err, stdout, stderr) {
-        if (err) {
-          cb()
-        } else {
-          var pattern = /\d\.\d[\.\d]*/ig,
-            match = pattern.exec(stdout);
-
-          if (match !== null && typeof match[0] !== 'undefined') {
-            self.ecomdevPHPUnitVersion = match[0];
-          }
-        }
-
-        cb()
-      });
-    } catch(e) {
-      cb()
-    }
-
-    if (typeof self.ecomdevPHPUnitVersion !== "undefined") {
-      this.tarball('https://github.com/EcomDev/EcomDev_PHPUnit  /tarball/' + self.ecomdevPHPUnitVersion, './', cb);
-    }
-  }
-}
+  this.tarball('http://www.magentocommerce.com/downloads/assets/' + this.magentoVersion + '/magento-' + this.magentoVersion + '.tar.gz', './', cb);
+};

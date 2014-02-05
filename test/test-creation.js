@@ -23,11 +23,14 @@ describe('magento generator', function () {
     var expected = [
       // add files you expect to exist here.
       '.jshintrc',
-      '.editorconfig'
+      '.editorconfig',
+      '.gitignore',
+      'package.json',
+      'bower.json'
     ];
 
     helpers.mockPrompt(this.app, {
-      'someOption': 'Y'
+      'magentoVersion': '1.8.0.0'
     });
     this.app.options['skip-install'] = true;
     this.app.run({}, function () {
