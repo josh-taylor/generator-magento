@@ -45,6 +45,8 @@ MagentoGenerator.prototype.app = function app() {
   this.copy('_bower.json', 'bower.json');
   this.copy('_package.json', 'package.json');
   this.copy('bowerrc', '.bowerrc');
+  this.copy('Gruntfile.js', 'Gruntfile.js');
+  this.copy('router.php', 'router.php');
 };
 
 MagentoGenerator.prototype.projectfiles = function projectfiles() {

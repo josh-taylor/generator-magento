@@ -2,6 +2,8 @@
   "name": "package",
   "version": "0.0.0",
   "dependencies": {
-    "bower": "*"
+    "bower": "*",
+    "grunt": "~0.4.2",
+    "grunt-php": "~0.3.0"
   }
 }

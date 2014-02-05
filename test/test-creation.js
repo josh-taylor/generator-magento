@@ -28,6 +28,8 @@ describe('magento generator', function () {
       '.gitignore',
       'package.json',
       'bower.json',
+      'Gruntfile.js',
+      'router.php',
       'app/design/frontend/testpackage/default/',
       'app/design/frontend/testpackage/default/template/',
       'app/design/frontend/testpackage/default/layout/',
