@@ -1,9 +1,10 @@
 {
   "name": "generator-magento",
   "version": "0.1.0",
-  "description": "A generator for Magento",
+  "description": "A Yeoman generator for Magento",
   "keywords": [
-    "yeoman-generator"
+    "yeoman-generator",
+    "magento"
   ],
   "homepage": "https://github.com/josh-taylor/generator-magento",
   "bugs": "https://github.com/josh-taylor/generator-magento/issues",
