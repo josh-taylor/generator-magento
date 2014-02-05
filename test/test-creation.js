@@ -23,16 +23,20 @@ describe('magento generator', function () {
 
   it('creates expected files', function (done) {
     var expected = [
-      // add files you expect to exist here.
       '.jshintrc',
       '.editorconfig',
       '.gitignore',
       'package.json',
-      'bower.json'
+      'bower.json',
+      'app/design/frontend/testpackage/default/',
+      'app/design/frontend/testpackage/default/template/',
+      'app/design/frontend/testpackage/default/layout/',
+      'skin/frontend/testpackage/default/'
     ];
 
     helpers.mockPrompt(this.app, {
-      'magentoVersion': '1.8.0.0'
+      magentoVersion: '1.8.0.0',
+      designPackage: 'testpackage'
     });
 
     this.app.options['skip-install'] = true;

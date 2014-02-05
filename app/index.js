@@ -1,3 +1,5 @@
+'use strict';
+
 var util = require('util');
 var path = require('path');
 var yeoman = require('yeoman-generator');
@@ -12,7 +14,7 @@ var MagentoGenerator = module.exports = function MagentoGenerator(args, options,
   this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
 };
 
-util.inherits(MagentoGenerator, yeoman.generators.Base);
+util.inherits(MagentoGenerator, yeoman.generators.NamedBase);
 
 MagentoGenerator.prototype.askFor = function askFor() {
   var cb = this.async();
@@ -24,10 +26,15 @@ MagentoGenerator.prototype.askFor = function askFor() {
     name: 'magentoVersion',
     message: 'What version do you want to use?',
     default: '1.8.1.0'
+  },{
+    name: 'designPackage',
+    message: 'Name of design package to create',
+    default: 'custom'
   }];
 
   this.prompt(prompts, function (props) {
     this.magentoVersion = props.magentoVersion;
+    this.designPackage = props.designPackage;
 
     cb();
   }.bind(this));
@@ -46,7 +53,24 @@ MagentoGenerator.prototype.projectfiles = function projectfiles() {
 };
 
 MagentoGenerator.prototype.download = function download() {
-  var cb = this.async();
+  var cb = this.async(),
+    url = 'http://www.magentocommerce.com/downloads/assets/' + this.magentoVersion + '/magento-' + this.magentoVersion + '.tar.gz';
 
-  this.tarball('http://www.magentocommerce.com/downloads/assets/' + this.magentoVersion + '/magento-' + this.magentoVersion + '.tar.gz', './', cb);
+  this.tarball(url, './', function(err) {
+    if (err) return done(err);
+    cb();
+  });
+};
+
+MagentoGenerator.prototype.createBlankDesignPackage = function createBlankDesignPackage() {
+  var designPath = 'app/design/frontend/' + this.designPackage,
+    skinPath = 'skin/frontend/' + this.designPackage;
+
+  this.mkdir(designPath);
+  this.mkdir(designPath + '/default');
+  this.mkdir(designPath + '/default/layout');
+  this.mkdir(designPath + '/default/template');
+
+  this.mkdir(skinPath);
+  this.mkdir(skinPath + '/default');
 };
