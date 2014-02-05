@@ -1,9 +1,8 @@
+'use strict';
+
 var util = require('util');
 var path = require('path');
-var wrench = require('wrench');
 var yeoman = require('yeoman-generator');
-var mysql = require('mysql');
-var exec = require('child_process').exec;
 
 var MagentoGenerator = module.exports = function MagentoGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
@@ -15,7 +14,7 @@ var MagentoGenerator = module.exports = function MagentoGenerator(args, options,
   this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
 };
 
-util.inherits(MagentoGenerator, yeoman.generators.Base);
+util.inherits(MagentoGenerator, yeoman.generators.NamedBase);
 
 MagentoGenerator.prototype.askFor = function askFor() {
   var cb = this.async();
@@ -25,105 +24,77 @@ MagentoGenerator.prototype.askFor = function askFor() {
 
   var prompts = [{
     name: 'magentoVersion',
-    message: 'What version do you want to use? (e.g. 1.7.0.2)',
-    default: '1.7.0.2'
-  }, {
-    type:'confirm',
-    name: 'includeGitignore',
-    message: 'Do you want to include the default .gitignore file?',
-    default: true,
-  }, {
-    name: 'mysqlHost',
-    message: 'MySQL Host',
-    default: 'localhost'
-  }, {
-    name: 'mysqlUser',
-    message: '      Username',
-    default: 'root'
-  }, {
-    name: 'mysqlPassword',
-    message: '      Password'
-  }, {
-    name: 'mysqlDatabase',
-    message: '      Database',
-    default: 'magento'
-  }, {
-    type: 'confirm',
-    name: 'installSampleData',
-    message: 'Install sample data?',
-    default: true
+    message: 'What version do you want to use?',
+    default: '1.8.1.0'
+  },{
+    name: 'designPackage',
+    message: 'Name of design package to create',
+    default: 'custom'
+  },{
+    type: 'checkbox',
+    name: 'features',
+    message: 'What would you like to include?',
+    choices: [{
+      name: 'Sass with Compass',
+      value: 'includeCompass',
+      default: true
+    }]
   }];
 
   this.prompt(prompts, function (props) {
+    var features = props.features;
     this.magentoVersion = props.magentoVersion;
-    this.includeUnitTest = props.includeUnitTest;
+    this.designPackage = props.designPackage;
 
-    this.mysqlHost = props.mysqlHost;
-    this.mysqlUsername = props.mysqlUser;
-    this.mysqlPassword = props.mysqlPassword;
-    this.mysqlDatabase = props.mysqlDatabase;
+    function hasFeature(feat) {
+      return features.indexOf(feat) !== -1;
+    }
 
-    this.installSampleData = props.installSampleData;
+    this.includeCompass = hasFeature('includeCompass');
 
     cb();
   }.bind(this));
 };
 
 MagentoGenerator.prototype.app = function app() {
-  var cb = this.async(),
-    self = this;
-
   this.copy('_gitignore', '.gitignore');
   this.copy('_bower.json', 'bower.json');
-  this.copy('_package.json', 'package.json');
-
-  this.tarball('http://www.magentocommerce.com/downloads/assets/' + self.magentoVersion + '/magento-' + self.magentoVersion + '.tar.gz', './', cb);
+  this.template('_package.json', 'package.json');
+  this.copy('bowerrc', '.bowerrc');
+  this.template('Gruntfile.js', 'Gruntfile.js');
+  this.copy('router.php', 'router.php');
 };
 
-MagentoGenerator.prototype.permission = function permissions() {
+MagentoGenerator.prototype.projectfiles = function projectfiles() {
+  this.copy('editorconfig', '.editorconfig');
+  this.copy('jshintrc', '.jshintrc');
+};
+
+MagentoGenerator.prototype.download = function download() {
   var cb = this.async(),
-    self = this;
+    url = 'http://www.magentocommerce.com/downloads/assets/' + this.magentoVersion + '/magento-' + this.magentoVersion + '.tar.gz';
 
-  wrench.chmodSyncRecursive('app/etc', 0775);
-  wrench.chmodSyncRecursive('media', 0775);
-  wrench.chmodSyncRecursive('var', 0775);
-
-  cb();
-}
-
-MagentoGenerator.prototype.sampleData = function sampleData() {
-  var cb = this.async(),
-    self = this;
-
-  if (this.installSampleData) {
-    this.tarball('http://www.magentocommerce.com/downloads/assets/1.6.1.0/magento-sample-data-1.6.1.0.tar.gz', 'tmp', function() {
-      // Copy sample product images across
-      wrench.copyDirSyncRecursive('tmp/media', 'media/');
-
-      // Setup connection and if database doesn't exist, create it
-      var connection = mysql.createConnection({
-        host: self.mysqlHost,
-        user: self.mysqlUsername,
-        password: self.mysqlPassword
-      });
-      connection.connect();
-      connection.query('CREATE DATABASE IF NOT EXISTS `' + self.mysqlDatabase + '`');
-
-      // Import the MySQL file
-      var mysqlCommand = 'mysql -u ' + self.mysqlUsername;
-      if (self.mysqlPassword != '') {
-        mysqlCommand += ' -p' + self.mysqlPassword;
-      }
-      mysqlCommand += ' ' + self.mysqlDatabase + ' < tmp/magento_sample_data_for_1.6.1.0.sql';
-      exec(mysqlCommand, function(err, stdout, stderr) {
-        if (err) {
-          throw err;
-        }
-        wrench.rmdirSyncRecursive('tmp');
-        cb();
-      });
-    });
-  } else {
+  this.tarball(url, './', function(err) {
+    if (err) return done(err);
     cb();
-  }
-}
+  });
+};
+
+MagentoGenerator.prototype.createBlankDesignPackage = function createBlankDesignPackage() {
+  var designPath = 'app/design/frontend/' + this.designPackage,
+    skinPath = 'skin/frontend/' + this.designPackage;
+
+  this.mkdir(designPath);
+  this.mkdir(designPath + '/default');
+  this.mkdir(designPath + '/default/layout');
+  this.mkdir(designPath + '/default/template');
+
+  this.mkdir(skinPath);
+  this.mkdir(skinPath + '/default');
+  this.mkdir(skinPath + '/default/scss');
+  this.mkdir(skinPath + '/default/images');
+  this.mkdir(skinPath + '/default/css');
+  this.mkdir(skinPath + '/default/fonts');
+
+  this.mkdir('js/vendor');
+};

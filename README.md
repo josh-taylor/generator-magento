@@ -1,11 +1,6 @@
-# Generator Magento
+# Magento Generator
 
-A generator for Magento.
-
-## Note
-
-This is very early in it's development, not recommended for public use yet. At the moment it's a
-project for me to get into writing generators with yeoman.
+A yeoman generator for starting a Magento project. Still quite early in development, but usable.
 
 ## Getting started
 - Make sure you have [yo](https://github.com/yeoman/yo) installed:
@@ -13,10 +8,15 @@ project for me to get into writing generators with yeoman.
 - Install the generator: `npm install -g generator-magento`
 - Run: `yo magento`
 
-## TODO
+## Features
+- Compass support
+- Use `grunt serve` to automatically build compass files and start a [php cli server](http://www.php.net/manual/en/features.commandline.webserver.php) (Navigate to http://127.0.0.1:8000).
 
- - Give option to install EcomDev_PHPUnit module
- - Run magento installation
+## Roadmap
+
+- [] Directory permissions
+- [] Live Reload
+- [] Option to install Twitter Bootstrap
 
 ## License
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)
