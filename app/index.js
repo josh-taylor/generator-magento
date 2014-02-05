@@ -1,9 +1,6 @@
-'use strict';
 var util = require('util');
 var path = require('path');
-var wrench = require('wrench');
 var yeoman = require('yeoman-generator');
-
 
 var MagentoGenerator = module.exports = function MagentoGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
