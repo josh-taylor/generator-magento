@@ -5,15 +5,43 @@ module.exports = function(grunt) {
     php: {
       server: {
         options: {
-          port: 9000,
-          router: 'router.php',
-          open: true
+          port: 8000,
+          router: 'router.php'
         }
       }
-    }
+    },
+
+    watch: {<% if (includeCompass) { %>
+      compass: {
+        files: ['skin/frontend/<%= designPackage %>/default/scss/{,**/}*.scss'],
+        tasks: ['compass:server']
+      }
+    <% } %>}<% if (includeCompass) { %>,
+
+    compass: {
+      options: {
+        sassDir: 'skin/frontend/<%= designPackage %>/default/scss',
+        cssDir: 'skin/frontend/<%= designPackage %>/default/css',
+        generatedImagesDir: 'skin/frontend/<%= designPackage %>/default/images/generated',
+        imagesDir: 'skin/frontend/<%= designPackage %>/default/images',
+        javascriptsDir: 'skin/frontend/<%= designPackage %>/default/js',
+        fontsDir: 'skin/frontend/<%= designPackage %>/default/fonts',
+        importPath: 'js/vendor',
+        relativeAssets: true,
+        assetCacheBuster: false
+      },
+      server: {
+        options: {
+          debugInfo: false
+        }
+      }
+    }<% } %>
   });
 
   grunt.loadNpmTasks('grunt-php');
+  grunt.loadNpmTasks('grunt-contrib-watch');<% if (includeCompass) { %>
+  grunt.loadNpmTasks('grunt-contrib-compass');
+  <% } %>
 
-  grunt.registerTask('serve', ['php']);
+  grunt.registerTask('serve', [<% if (includeCompass) { %>'compass:server', <% } %>'php', 'watch']);
 };

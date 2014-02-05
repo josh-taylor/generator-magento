@@ -38,7 +38,8 @@ describe('magento generator', function () {
 
     helpers.mockPrompt(this.app, {
       magentoVersion: '1.8.0.0',
-      designPackage: 'testpackage'
+      designPackage: 'testpackage',
+      features: ['includeCompass']
     });
 
     this.app.options['skip-install'] = true;

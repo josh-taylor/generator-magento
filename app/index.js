@@ -30,11 +30,27 @@ MagentoGenerator.prototype.askFor = function askFor() {
     name: 'designPackage',
     message: 'Name of design package to create',
     default: 'custom'
+  },{
+    type: 'checkbox',
+    name: 'features',
+    message: 'What would you like to include?',
+    choices: [{
+      name: 'Sass with Compass',
+      value: 'includeCompass',
+      default: true
+    }]
   }];
 
   this.prompt(prompts, function (props) {
+    var features = props.features;
     this.magentoVersion = props.magentoVersion;
     this.designPackage = props.designPackage;
+
+    function hasFeature(feat) {
+      return features.indexOf(feat) !== -1;
+    }
+
+    this.includeCompass = hasFeature('includeCompass');
 
     cb();
   }.bind(this));
@@ -43,9 +59,9 @@ MagentoGenerator.prototype.askFor = function askFor() {
 MagentoGenerator.prototype.app = function app() {
   this.copy('_gitignore', '.gitignore');
   this.copy('_bower.json', 'bower.json');
-  this.copy('_package.json', 'package.json');
+  this.template('_package.json', 'package.json');
   this.copy('bowerrc', '.bowerrc');
-  this.copy('Gruntfile.js', 'Gruntfile.js');
+  this.template('Gruntfile.js', 'Gruntfile.js');
   this.copy('router.php', 'router.php');
 };
 
@@ -75,4 +91,10 @@ MagentoGenerator.prototype.createBlankDesignPackage = function createBlankDesign
 
   this.mkdir(skinPath);
   this.mkdir(skinPath + '/default');
+  this.mkdir(skinPath + '/default/scss');
+  this.mkdir(skinPath + '/default/images');
+  this.mkdir(skinPath + '/default/css');
+  this.mkdir(skinPath + '/default/fonts');
+
+  this.mkdir('js/vendor');
 };

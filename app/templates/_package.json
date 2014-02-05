@@ -4,6 +4,8 @@
   "dependencies": {
     "bower": "*",
     "grunt": "~0.4.2",
-    "grunt-php": "~0.3.0"
+    "grunt-php": "~0.3.0"<% if (includeCompass) { %>,
+    "grunt-contrib-compass": "~0.7.0"<% } %>,
+    "grunt-contrib-watch": "~0.5.2"
   }
 }
