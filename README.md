@@ -10,13 +10,13 @@ A yeoman generator for starting a Magento project. Still quite early in developm
 
 ## Features
 - Compass support
+- Option to install Twitter Bootstrap (Either LESS or SASS)
 - Use `grunt serve` to automatically build compass files and start a [php cli server](http://www.php.net/manual/en/features.commandline.webserver.php) (Navigate to http://127.0.0.1:8000).
+- Automatically set the required permissions for a Magento installation
 
 ## Roadmap
 
-- :heavy_check_mark: Directory permissions
-- :heavy_check_mark: Live Reload
-- :heavy_check_mark: Option to install Twitter Bootstrap
+- [] Use github clone of Magento repository instead of tarball
 
 ## License
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)
