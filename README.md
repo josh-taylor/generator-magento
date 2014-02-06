@@ -14,7 +14,7 @@ A yeoman generator for starting a Magento project. Still quite early in developm
 
 ## Roadmap
 
-- [] Directory permissions
+- :heavy_check_mark: Directory permissions
 - :heavy_check_mark: Live Reload
 - :heavy_check_mark: Option to install Twitter Bootstrap
 
