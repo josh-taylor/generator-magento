@@ -15,8 +15,17 @@ module.exports = function(grunt) {
       compass: {
         files: ['skin/frontend/<%= designPackage %>/default/scss/{,**/}*.scss'],
         tasks: ['compass:server']
+      },
+      <% } %>livereload: {
+        options: {
+          livereload: true,
+        },
+        files: [
+          'app/design/frontend/<%= designPackage %>/default/{layout,template}/{,**/}*.{xml,phtml}',
+          'skin/frontend/<%= designPackage %>/default/css/{,*/}*.css'
+        ]
       }
-    <% } %>}<% if (includeCompass) { %>,
+    }<% if (includeCompass) { %>,
 
     compass: {
       options: {

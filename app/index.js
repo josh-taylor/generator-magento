@@ -3,6 +3,7 @@
 var util = require('util');
 var path = require('path');
 var yeoman = require('yeoman-generator');
+var wrench = require('wrench');
 
 var MagentoGenerator = module.exports = function MagentoGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
@@ -38,6 +39,10 @@ MagentoGenerator.prototype.askFor = function askFor() {
       name: 'Sass with Compass',
       value: 'includeCompass',
       default: true
+    },{
+      name: 'Twitter Bootstrap',
+      value: 'includeBootstrap',
+      default: true
     }]
   }];
 
@@ -51,6 +56,7 @@ MagentoGenerator.prototype.askFor = function askFor() {
     }
 
     this.includeCompass = hasFeature('includeCompass');
+    this.includeBootstrap = hasFeature('includeBootstrap');
 
     cb();
   }.bind(this));
@@ -58,7 +64,7 @@ MagentoGenerator.prototype.askFor = function askFor() {
 
 MagentoGenerator.prototype.app = function app() {
   this.copy('_gitignore', '.gitignore');
-  this.copy('_bower.json', 'bower.json');
+  this.template('_bower.json', 'bower.json');
   this.template('_package.json', 'package.json');
   this.copy('bowerrc', '.bowerrc');
   this.template('Gruntfile.js', 'Gruntfile.js');
@@ -97,4 +103,10 @@ MagentoGenerator.prototype.createBlankDesignPackage = function createBlankDesign
   this.mkdir(skinPath + '/default/fonts');
 
   this.mkdir('js/vendor');
+};
+
+MagentoGenerator.prototype.permissions = function permissions() {
+  wrench.chmodSyncRecursive('app/etc', '777');
+  wrench.chmodSyncRecursive('media', '777');
+  wrench.chmodSyncRecursive('var', '777');
 };

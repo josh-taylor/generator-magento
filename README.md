@@ -1,4 +1,4 @@
-# Magento Generator [![Build Status](https://travis-ci.org/josh-taylor/generator-magento.png?branch=master)](https://travis-ci.org/josh-taylor/generator-magento)
+# Magento Generator [![Build Status](https://travis-ci.org/josh-taylor/generator-magento.png?branch=0.2.0)](https://travis-ci.org/josh-taylor/generator-magento)
 
 A yeoman generator for starting a Magento project. Still quite early in development, but usable.
 
@@ -14,9 +14,9 @@ A yeoman generator for starting a Magento project. Still quite early in developm
 
 ## Roadmap
 
-- [] Directory permissions
-- [] Live Reload
-- [] Option to install Twitter Bootstrap
+- :heavy_check_mark: Directory permissions
+- :heavy_check_mark: Live Reload
+- :heavy_check_mark: Option to install Twitter Bootstrap
 
 ## License
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)
