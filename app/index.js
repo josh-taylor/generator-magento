@@ -38,6 +38,10 @@ MagentoGenerator.prototype.askFor = function askFor() {
       name: 'Sass with Compass',
       value: 'includeCompass',
       default: true
+    },{
+      name: 'Twitter Bootstrap',
+      value: 'includeBootstrap',
+      default: true
     }]
   }];
 
@@ -51,6 +55,7 @@ MagentoGenerator.prototype.askFor = function askFor() {
     }
 
     this.includeCompass = hasFeature('includeCompass');
+    this.includeBootstrap = hasFeature('includeBootstrap');
 
     cb();
   }.bind(this));
@@ -58,7 +63,7 @@ MagentoGenerator.prototype.askFor = function askFor() {
 
 MagentoGenerator.prototype.app = function app() {
   this.copy('_gitignore', '.gitignore');
-  this.copy('_bower.json', 'bower.json');
+  this.template('_bower.json', 'bower.json');
   this.template('_package.json', 'package.json');
   this.copy('bowerrc', '.bowerrc');
   this.template('Gruntfile.js', 'Gruntfile.js');

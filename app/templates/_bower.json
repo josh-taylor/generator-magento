@@ -1,6 +1,10 @@
 {
   "name": "package",
   "version": "0.0.0",
-  "dependencies": {}
+  "dependencies": {<% if (includeBootstrap && !includeCompass) { %>
+    "bootstrap": "~3.1.0"
+  <% } else if (includeBootstrap && includeCompass) { %>
+    "bootstrap-sass": "~3.1.0"
+  <% } %>}
 }
 
