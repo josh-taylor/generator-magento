@@ -3,6 +3,7 @@
 var util = require('util');
 var path = require('path');
 var yeoman = require('yeoman-generator');
+var wrench = require('wrench');
 
 var MagentoGenerator = module.exports = function MagentoGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
@@ -102,4 +103,10 @@ MagentoGenerator.prototype.createBlankDesignPackage = function createBlankDesign
   this.mkdir(skinPath + '/default/fonts');
 
   this.mkdir('js/vendor');
+};
+
+MagentoGenerator.prototype.permissions = function permissions() {
+  wrench.chmodSyncRecursive('app/etc', '777');
+  wrench.chmodSyncRecursive('media', '777');
+  wrench.chmodSyncRecursive('var', '777');
 };
