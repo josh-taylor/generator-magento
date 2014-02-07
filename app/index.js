@@ -78,7 +78,7 @@ MagentoGenerator.prototype.projectfiles = function projectfiles() {
 
 MagentoGenerator.prototype.download = function download() {
   var cb = this.async(),
-    url = 'http://www.magentocommerce.com/downloads/assets/' + this.magentoVersion + '/magento-' + this.magentoVersion + '.tar.gz';
+    url = 'https://github.com/speedupmate/Magento-CE-Mirror/archive/magento-ce-' + this.magentoVersion + '.tar.gz';
 
   this.tarball(url, './', function(err) {
     if (err) return done(err);
