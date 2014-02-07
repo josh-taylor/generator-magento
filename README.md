@@ -1,4 +1,4 @@
-# Magento Generator [![Build Status](https://travis-ci.org/josh-taylor/generator-magento.png?branch=0.2.0)](https://travis-ci.org/josh-taylor/generator-magento)
+# Magento Generator [![Build Status](https://travis-ci.org/josh-taylor/generator-magento.png?branch=0.3.0)](https://travis-ci.org/josh-taylor/generator-magento)
 
 A yeoman generator for starting a Magento project. Still quite early in development, but usable.
 
