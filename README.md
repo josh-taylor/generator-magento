@@ -14,10 +14,5 @@ A yeoman generator for starting a Magento project. Still quite early in developm
 - Use `grunt serve` to automatically build compass files and start a [php cli server](http://www.php.net/manual/en/features.commandline.webserver.php) (Navigate to http://127.0.0.1:8000).
 - Automatically set the required permissions for a Magento installation
 
-## Roadmap
-
-- [] Use github clone of Magento repository instead of tarball
-- [] Use `bootstrap-sass-official` instead of unofficial version
-
 ## License
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)
