@@ -17,6 +17,7 @@ A yeoman generator for starting a Magento project. Still quite early in developm
 ## Roadmap
 
 - [] Use github clone of Magento repository instead of tarball
+- [] Use `bootstrap-sass-official` instead of unofficial version
 
 ## License
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)
