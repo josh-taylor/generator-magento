@@ -37,7 +37,7 @@ describe('magento generator', function () {
     ];
 
     helpers.mockPrompt(this.app, {
-      magentoVersion: '1.8.0.0',
+      magentoVersion: '1.9.0.0',
       designPackage: 'testpackage',
       features: ['includeBootstrap']
     });
