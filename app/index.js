@@ -26,7 +26,7 @@ MagentoGenerator.prototype.askFor = function askFor() {
   var prompts = [{
     name: 'magentoVersion',
     message: 'What version do you want to use?',
-    default: '1.9.0.0'
+    default: '1.9.1.0'
   },{
     name: 'designPackage',
     message: 'Name of design package to create',
