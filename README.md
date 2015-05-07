@@ -3,9 +3,11 @@
 A yeoman generator for starting a Magento project. Still quite early in development, but usable.
 
 ## Getting started
-- Make sure you have [yo](https://github.com/yeoman/yo) installed:
-    `npm install -g yo`
+- Make sure you have [yo](https://github.com/yeoman/yo) and [grunt](https://github.com/gruntjs/grunt) installed:
+    `npm install -g yo grunt`
 - Install the generator: `npm install -g generator-magento`
+- Make a directory for your install: `mkdir magento`
+- Change to your new directory: `cd magento`
 - Run: `yo magento`
 
 ## Features
